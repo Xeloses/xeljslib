@@ -1,9 +1,14 @@
 # XelJSlib - Xeloses' JS lib
-* XelApp: [xelapp.min.js](./src/xelapp/xelapp.min.js)
-## Usage:
-• Use loader script from [loader.js](./loader.js) or [loader.min.js](./loader.min.js).
+* [XelApp](./src/xelapp/xelapp.min.js) - Script application and storage.
+  
+  ``https://raw.githubusercontent.com/Xeloses/xeljslib/master/src/xelapp/xeljslib-xelapp.js``
 
-• Load required scripts:
+## Usage:
+• In HTML:
+```html
+<script src="https://.../xeljslib-xelapp.js" type="text/javascript"></script>
+```
+• Or use loader script from [loader.js](./loader.js) or [loader.min.js](./loader.min.js) :
 ```javascript
 loadJS('https://.../xeljslib-xelapp.js', ()=>{ /* code */ });
 ```
