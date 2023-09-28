@@ -4,7 +4,7 @@
  * Script source(s) can be passed as:
  * 1) String - loads single script.
  * 2) Array of Strings - loads multiple scripts.
- * 3) Plain Object with pairs {'id_01': 'script_url_01', ... } - loads multiple scripts and sets IDs for them.
+ * 3) Plain Object with pairs {'id_01': 'script_url_01', ... } - loads multiple scripts and sets IDs for them (prevents loading of scripts with duplicate IDs).
  *
  * @param  {String|Array|Object} src
  * @param  {Callable}            callback
@@ -60,7 +60,8 @@ function loadJS(src, callback){
         {
             counter.max = Object.values(src).filter((s) => { return s.length && s.startsWith('http'); }).length;
             for(const id in src)
-                include(src[id], callback, id);
+                if(!document.getElementById(id))
+                    include(src[id], callback, id);
         }
     }
 }
