@@ -1,0 +1,6 @@
+vendor/
+.env
+.cmd
+.log
+.tmp
+.sqlite
