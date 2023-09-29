@@ -454,7 +454,7 @@ class XelApp
 	 * @param  {Callable}  cb   Callback function
 	 * @return {Void}
 	 */
-	static waitPageLoading(sel, cb)
+	waitPageLoading(sel, cb)
 	{
 		document.querySelector(sel) ? cb() : setTimeout(this.waitPageLoading(sel,cb), 330);
 	}
@@ -468,7 +468,7 @@ class XelApp
 	 * @param  {Boolean}  preserve_comments
 	 * @return {Node}
 	 */
-	static injectCSS(css, id = null, media = 'screen', preserve_comments = false)
+	injectCSS(css, id = null, media = 'screen', preserve_comments = false)
 	{
 		if(document.querySelector(id)) return;
 
@@ -493,7 +493,7 @@ class XelApp
 	 * @param  {String}  namespace
 	 * @return {Node}
 	 */
-	static createNode(node = 'DIV', content = null, attributes = null, namespace = null)
+	createNode(node = 'DIV', content = null, attributes = null, namespace = null)
 	{
 		if(node === null || node.toUpperCase() === 'TEXT')
 			return document.createTextNode(content ? content : '');
