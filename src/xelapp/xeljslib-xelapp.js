@@ -2,7 +2,7 @@
  * @name         XelJSlib: XelApp
  * @description  Script application and storage implementation.
  * @author       Xeloses (https://github.com/Xeloses)
- * @version      0.1.0
+ * @version      0.1.1
  * @copyright    Xeloses 2023
  * @license      GNU GPL v3 (https://www.gnu.org/licenses/gpl-3.0.html)
  * @namespace    Xeloses.JSlib.XelApp
