@@ -515,7 +515,7 @@ class XelApp
 					}
 					else
 						el.setAttribute(name, value);
-				}
+                }
 
 			if(content)
 			{
@@ -523,7 +523,7 @@ class XelApp
 					content.forEach((item) => { el.appendChild( (typeof item === 'string') ? document.createTextNode(item) : item ); });
 				else
 				    el.appendChild( (typeof content === 'string') ? document.createTextNode(content) : content );
-            }
+			}
 
 			return el;
 		}
