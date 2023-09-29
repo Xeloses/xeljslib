@@ -520,9 +520,7 @@ class XelApp
 			if(content)
 			{
 				if(Array.isArray(content))
-					content.forEach((item) => {
-                        el.appendChild( (typeof item === 'string') ? document.createTextNode(item) : item );
-                    });
+					content.forEach((item) => { el.appendChild( (typeof item === 'string') ? document.createTextNode(item) : item ); });
 				else
 				    el.appendChild( (typeof content === 'string') ? document.createTextNode(content) : content );
             }
