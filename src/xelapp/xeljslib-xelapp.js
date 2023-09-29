@@ -486,7 +486,7 @@ class XelApp
 	 * Create new Node.
 	 *
 	 * @param  {String}  node
-	 * @param  {Mixed}   content
+	 * @param  {Mixed}   content      Node or Text or Array of elements (Nodes and/or Text) to insert into created Node.
 	 * @param  {Object}  attributes
 	 * @param  {String}  namespace
 	 * @return {Node}
@@ -516,7 +516,13 @@ class XelApp
 				}
 
 			if(content)
-				el.appendChild( (typeof content === 'string') ? document.createTextNode(content) : content );
+			{
+				if(Array.isArray(content))
+					content.forEach((item) => {
+                        el.appendChild( (typeof item === 'string') ? document.createTextNode(item) : item );
+                    });
+				else
+				    el.appendChild( (typeof content === 'string') ? document.createTextNode(content) : content );
 
 			return el;
 		}
