@@ -523,6 +523,7 @@ class XelApp
                     });
 				else
 				    el.appendChild( (typeof content === 'string') ? document.createTextNode(content) : content );
+            }
 
 			return el;
 		}
