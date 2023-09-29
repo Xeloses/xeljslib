@@ -1,7 +1,7 @@
 {
     "name": "xeloses/xeljslib",
     "type": "library",
-    "description": "Xeloses' JavaScript library",
+    "description": "Xeloses' JS library",
     "keywords": ["js", "javascript", "library"],
     "homepage": "https://github.com/Xeloses/xeljslib",
     "license": "GPL-3.0",
