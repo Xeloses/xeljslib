@@ -462,10 +462,11 @@ class XelApp
 	 *
 	 * @param  {String}   css
 	 * @param  {String}   id
+	 * @param  {String}   media
 	 * @param  {Boolean}  preserve_comments
 	 * @return {Node}
 	 */
-	static injectCSS(css, id = null, preserve_comments = false)
+	static injectCSS(css, id = null, media = 'screen', preserve_comments = false)
 	{
 		if(document.querySelector(id)) return;
 
@@ -474,6 +475,7 @@ class XelApp
 
 		let el = document.createElement('STYLE');
 		if(id) el.id = id;
+		if(media) el.media = media;
 		el.type = 'text/css';
 		el.appendChild( document.createTextNode(css) );
 		document.head.appendChild(el);
