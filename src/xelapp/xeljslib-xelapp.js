@@ -338,7 +338,7 @@ class XelApp
 	/**
 	 * @constructor
 	 *
-	 * @param {Object}   data
+	 * @param {Object}   data                    App information (pass GM_info to use info from userscript' header)
 	 * @param {Object}   config
 	 * @param {Callable} storageUpgradeCallback
 	 */
@@ -354,14 +354,16 @@ class XelApp
 			},
 			config);
 
-		this.__is_userscript__ = (typeof GM_info !== 'undefined') && ('script' in GM_info);
+		const UserscriptInfo = (typeof GM_info !== 'undefined' && 'script' in GM_info) ? GM_info : ( (data && 'script' in data) ? data : null );
 
-		this.__name__ = data.name || (this.__is_userscript__  ? GM_info.script.name : 'Script');
-		this.__version__ = data.version || (this.__is_userscript__  ? GM_info.script.version : '0.0.1');
-		this.__author__ = data.author || (this.__is_userscript__  ? GM_info.script.author : null);
-		this.__description__ = data.description || (this.__is_userscript__  ? GM_info.script.description : null);
-		this.__url__ = data.url || (this.__is_userscript__  ? GM_info.script.homepage : null);
-		this.__namespace__ = data.namespace || (this.__is_userscript__  ? GM_info.script.namespace : (this.__author__ ? this.__author__.replace(/[^.\-\w]+/g, '') + '.' : '') + this.__name__.replace(/[^.\-\w]+/g, ''));
+		this.__is_userscript__ = !!UserscriptInfo;
+
+		this.__name__ = data.name || (this.__is_userscript__  ? UserscriptInfo.script.name : 'Script');
+		this.__version__ = data.version || (this.__is_userscript__  ? UserscriptInfo.script.version : '0.0.1');
+		this.__author__ = data.author || (this.__is_userscript__  ? UserscriptInfo.script.author : null);
+		this.__description__ = data.description || (this.__is_userscript__  ? UserscriptInfo.script.description : null);
+		this.__url__ = data.url || (this.__is_userscript__  ? UserscriptInfo.script.homepage : null);
+		this.__namespace__ = data.namespace || (this.__is_userscript__  ? UserscriptInfo.script.namespace : (this.__author__ ? this.__author__.replace(/[^.\-\w]+/g, '') + '.' : '') + this.__name__.replace(/[^.\-\w]+/g, ''));
 		this.__unique_id__ = this.__namespace__.replace(/[.\-\s]+/g, '_').replace(/[^\w]+/g, '').toLowerCase();
 
 		this.__is_mobile_device__ = this.__isMobile();
