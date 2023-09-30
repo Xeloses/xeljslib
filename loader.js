@@ -1,13 +1,8 @@
 /**
  * Load external JS lib(s).
  *
- * Script source(s) can be passed as:
- * 1) String - loads single script.
- * 2) Array of Strings - loads multiple scripts.
- * 3) Plain Object with pairs {'id_01': 'script_url_01', ... } - loads multiple scripts and sets IDs for them (prevents loading of scripts with duplicate IDs).
- *
- * @param  {String|Array|Object} src
- * @param  {Callable}            callback
+ * @param  {string|Array|Object}  src        Script source(s), can be String (loads single script), or Array of Strings (loads multiple scripts) or Plain Object with pairs {'id_01': 'script_url_01', ... } (loads multiple scripts and sets IDs for them, prevents loading of scripts with duplicate IDs)
+ * @param  {CallableFunction}     callback   Callback function to execute after loading script(s).
  * @return {Void}
  */
 

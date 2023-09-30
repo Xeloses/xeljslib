@@ -9,32 +9,19 @@
  */
 
 /**
- * @class     XelAppStorage
- * @classdesc Storage API wrapper.
+ * Script storage API wrapper (supports browser' local storage and userscripts storage).
  *
- * @property {String} version
- *
- * @method get({String} name)
- * @method set({String} name, {Mixed} value)
- * @method delete({String} name)
- * @method remove({String} name)
- * @method clear()
- * @method on({String} name, {Callable} callback)
- * @method addEventListener({String} name, {Callable} callback)
- *
- * @event read
- * @event write
- * @event delete
- * @event clear
+ * @class XelAppStorage
  */
 class XelAppStorage
 {
     /**
      * @constructor
      *
-     * @param {Number}   version
-     * @param {Object}   config
-     * @param {Callable} upgradeCallback
+     * @param {number}           [version=1]             Version of data in storage (used to determine if storage needs upgrade)
+     * @param {object}           [config={}]             Storage configuration options
+     * @param {CallableFunction} [upgradeCallback=null]  Upgrade storage function, executed if version of data in storage is older than version passed to constructor
+     * @memberof XelAppStorage
      */
     constructor(version = 1, config = {}, upgradeCallback = null)
     {
@@ -78,9 +65,10 @@ class XelAppStorage
     /* ===================== PRIVATE METHODS ===================== */
 
     /**
-     * Check if Userscript Storage is available
+     * Check if Userscript Storage is available.
      *
-     * @return {Boolean}
+     * @return {boolean}
+     * @memberof XelAppStorage
      */
     __isUserscriptStorageAvailable()
     {
@@ -90,9 +78,10 @@ class XelAppStorage
     }
 
     /**
-     * Check if localStorage is supported in the browser and available
+     * Check if localStorage is supported in the browser and available.
      *
-     * @return {Boolean}
+     * @return {boolean}
+     * @memberof XelAppStorage
      */
     __isLocalStorageAvailable()
     {
@@ -118,10 +107,11 @@ class XelAppStorage
     }
 
     /**
-     * Convert string representation of the version to the numeric value
+     * Convert string representation of the version to the numeric value.
      *
-     * @param  {String}  value
-     * @return {Boolean}
+     * @param  {string} value
+     * @return {number}
+     * @memberof XelAppStorage
      */
     __n(value)
     {
@@ -131,18 +121,19 @@ class XelAppStorage
         const x = /(\d+)\.(\d+)(\.\d+)?(\.\d+)?/.exec(value);
         if(!x) return 0;
 
-        return Number.parseInt(x[1]) * 1000000 +
+        return Number.parseFloat(x[1]) * 1000000 +
                (typeof x[2] !== 'undefined' ? Number.parseInt(x[2]) * 1000 : 0) +
                (typeof x[3] !== 'undefined' ? Number.parseInt(x[3].slice(1)) : 0) +
                (typeof x[4] !== 'undefined' ? Number.parseFloat(x[4]) : 0);
     }
 
     /**
-     * Trigger event
+     * Trigger event.
      *
-     * @param  {String} name
-     * @param  {Mixed}  data
+     * @param  {string} name  Event name
+     * @param  {any}    data  Param to be passed to event listener
      * @return {Self}
+     * @memberof XelAppStorage
      */
     __t(name, data)
     {
@@ -158,10 +149,11 @@ class XelAppStorage
     /* ===================== PUBLIC METHODS ===================== */
 
     /**
-     * Check if value is exists in storage
+     * Check if value is exists in storage.
      *
-     * @param  {String}  name
-     * @return {Boolean}
+     * @param  {string} name
+     * @return {boolean}
+     * @memberof XelAppStorage
      */
     has(name)
     {
@@ -179,10 +171,11 @@ class XelAppStorage
     }
 
     /**
-     * Read value from storage
+     * Read value from storage.
      *
-     * @param  {String} name
-     * @return {Mixed}
+     * @param  {string} name
+     * @return {any}
+     * @memberof XelAppStorage
      */
     get(name)
     {
@@ -204,11 +197,12 @@ class XelAppStorage
     }
 
     /**
-     * Store value into storage
+     * Store value into storage.
      *
-     * @param  {String} name
-     * @param  {Mixed}  name
+     * @param  {string} name
+     * @param  {any}    value
      * @return {Self}
+     * @memberof XelAppStorage
      */
     set(name, value)
     {
@@ -237,10 +231,11 @@ class XelAppStorage
     }
 
     /**
-     * Remove value from storage
+     * Remove value from storage.
      *
-     * @param  {String} name
+     * @param  {string} name
      * @return {Self}
+     * @memberof XelAppStorage
      */
     delete(name)
     {
@@ -257,16 +252,23 @@ class XelAppStorage
         return this;
     }
 
+    /**
+     * Remove value from storage (alias of delete()).
+     *
+     * @param  {string} name
+     * @return {Self}
+     * @memberof XelAppStorage
+     */
     remove(name)
     {
         return this.delete(name);
     }
 
     /**
-     * Clear storage
+     * Clear storage.
      *
-     * @param  {String} name
      * @return {Self}
+     * @memberof XelAppStorage
      */
     clear()
     {
@@ -284,11 +286,12 @@ class XelAppStorage
     }
 
     /**
-     * Add event listener (events model support)
+     * Add event listener.
      *
-     * @param  {String}   name
-     * @param  {Callable} callback
+     * @param  {string}           name      Event name.
+     * @param  {CallableFunction} callback  Callback function.
      * @return {Self}
+     * @memberof XelAppStorage
      */
     addEventListener(name, callback)
     {
@@ -297,50 +300,31 @@ class XelAppStorage
         return this;
     }
 
+    /**
+     * Add event listener (alias of addEventListener()).
+     *
+     * @param  {string}           name      Event name.
+     * @param  {CallableFunction} callback  Callback function.
+     * @return {Self}
+     * @memberof XelAppStorage
+     */
     on(name, callback){ this.addEventListener(name, callback); }
 }
 
 /**
- * @class     XelApp
- * @classdesc Script application.
+ * Script application.
  *
- * @property {String} name
- * @property {String} appName
- * @property {String} ver
- * @property {String} version
- * @property {String} author
- * @property {String} description
- * @property {String} url
- * @property {String} homepage
- * @property {String} ns
- * @property {String} namespace
- * @property {String} prefix
- * @property {String} unique
- *
- * @property {Boolean} isUserscript
- * @property {Boolean} isMobile
- *
- * @property {XelAppStorage} storage
- *
- * @method waitPageLoading({String} sel, {Callable} cb)
- * @method injectCSS({String} css, {String} id, {Boolean} preserve_comments)
- * @method createNode({String} node, {Mixed} content, {Object} attributes, {String} namespace)
- *
- * @method log({String} message)
- * @method logInfo({String} message)
- * @method logWarn({String} message)
- * @method logError({String} message)
- * @method logInit()
- * @method dump({Mixed} value, {String} comment)
+ * @class XelApp
  */
 class XelApp
 {
     /**
      * @constructor
      *
-     * @param {Object}   data                    App information (pass GM_info to use info from userscript' header)
-     * @param {Object}   config
-     * @param {Callable} storageUpgradeCallback
+     * @param {object}           [data={}]                      Application information (pass GM_info to use info from userscript' header)
+     * @param {object}           [config={}]                    Application configuraion options
+     * @param {CallableFunction} [storageUpgradeCallback=null]
+     * @memberof XelApp
      */
     constructor(data = {}, config = {}, storageUpgradeCallback = null)
     {
@@ -375,6 +359,8 @@ class XelApp
 
         this.__no_console__ = conf.noConsole;
 
+        this.__prefer_local_storage__ = conf.preferLocalStorage;
+
         if(storageUpgradeCallback)
             this.__onStorageUpgrade__ = storageUpgradeCallback;
     }
@@ -384,14 +370,14 @@ class XelApp
     /**
      * Initialize app storage
      *
-     * @param  {Boolean}       preferLocalStorage
      * @return {XelAppStorage}
+     * @memberof XelApp
      */
     __initStorage()
     {
         try
         {
-            this.__storage__ = new XelAppStorage(this.__version__, { preferLocalStorage: preferLocalStorage }, this.__onStorageUpgrade__);
+            this.__storage__ = new XelAppStorage(this.__version__, { preferLocalStorage: this.__prefer_local_storage__ }, this.__onStorageUpgrade__);
             return this.__storage_;
         }
         catch(e)
@@ -405,7 +391,8 @@ class XelApp
     /**
      * Check if script running on mobile device.
      *
-     * @return {Boolean}
+     * @return {boolean}
+     * @memberof XelApp
      */
     __isMobile()
     {
@@ -450,9 +437,10 @@ class XelApp
     /**
      * Wait for page loading/processing.
      *
-     * @param  {String}    sel  CSS selector of element to wait for
-     * @param  {Callable}  cb   Callback function
-     * @return {Void}
+     * @param  {string}            sel  CSS selector of element to wait for
+     * @param  {CallableFunction}  cb   Callback function
+     * @return {void}
+     * @memberof XelApp
      */
     waitPageLoading(sel, cb)
     {
@@ -460,13 +448,14 @@ class XelApp
     }
 
     /**
-     * Inject CSS into page (create <style> element with CSS).
+     *Inject CSS into page (create <style> element with CSS).
      *
-     * @param  {String}   css
-     * @param  {String}   id
-     * @param  {String}   media
-     * @param  {Boolean}  preserve_comments
+     * @param  {string}       css                        CSS code to inject
+     * @param  {string|null}  [id=null]                  Optional ID for injected CSS ("id" attribute of <style> tag)
+     * @param  {string}       [media='screen']           Optional Media type of injecting CSS ("media" attribute of <style> tag; default: "screen")
+     * @param  {boolean}      [preserve_comments=false]  Preserve or remove comments from CSS code before inject (default: remove comments)
      * @return {Node}
+     * @memberof XelApp
      */
     injectCSS(css, id = null, media = 'screen', preserve_comments = false)
     {
@@ -487,11 +476,12 @@ class XelApp
     /**
      * Create new Node.
      *
-     * @param  {String}  node
-     * @param  {Mixed}   content      Node or Text or Array of elements (Nodes and/or Text) to insert into created Node.
-     * @param  {Object}  attributes
-     * @param  {String}  namespace
+     * @param {string} [node='DIV']       Node type (use "text" to create TextNode; default: "DIV")
+     * @param {string|Node|string[]|Node[]}    [content=null]     Node or Text or Array of elements (Nodes and/or Text) to insert into created Node (default: no content, creates empty node)
+     * @param {object} [attributes=null]  Optional list of node attributes (default: no attributes)
+     * @param {string} [namespace=null]   Optional Node namespace (usable only for <svg> nodes; default: no namespace)
      * @return {Node}
+     * @memberof XelApp
      */
     createNode(node = 'DIV', content = null, attributes = null, namespace = null)
     {
@@ -530,40 +520,84 @@ class XelApp
     }
 
     /* eslint-disable no-console */
+
+    /**
+     * Log to console.
+     *
+     * @param  {string} message
+     * @return {void}
+     * @memberof XelApp
+     */
     log(message)
     {
         if(this.__no_console__) return;
         console.log(`%c[${this.name}]%c ${message}`, this.__style__.header, this.__style__.text);
     }
 
-    dump(value, comment)
+    /**
+     * Dump variable to console.
+     *
+     * @param  {any}    value           Variable to dump
+     * @param  {string} [comment=null]  Optional comment
+     * @return {void}
+     * @memberof XelApp
+     */
+    dump(value, comment = null)
     {
         if(this.__no_console__) return;
         if(comment) this.log(comment);
         console.log(value);
     }
 
+    /**
+     * Log info to console.
+     *
+     * @param  {string} message
+     * @return {void}
+     * @memberof XelApp
+     */
     logInfo(message)
     {
         if(this.__no_console__) return;
         console.info(`%c[${this.name}]%c ${message}`, this.__style__.header, this.__style__.text + 'font-style:italic;');
     }
 
+    /**
+     * Log warning to console.
+     *
+     * @param  {string} message
+     * @return {void}
+     * @memberof XelApp
+     */
     logWarn(message)
     {
         if(this.__no_console__) return;
         console.warn(`%c[${this.name}]%c ${message}`, this.__style__.header, this.__style__.text);
     }
 
+    /**
+     * Log error to console.
+     *
+     * @param  {string} message
+     * @return {void}
+     * @memberof XelApp
+     */
     logError(message)
     {
         if(this.__no_console__) return;
         console.error(`%c[${this.name}]%c ${message}`, this.__style__.header, this.__style__.text);
     }
 
+    /**
+     * Add application loading message to console.
+     *
+     * @return {void}
+     * @memberof XelApp
+     */
     logInit()
     {
         this.logInfo(`App loaded (version: ${this.version})`);
     }
+
     /* eslint-enable no-console */
 }
