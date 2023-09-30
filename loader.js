@@ -26,6 +26,7 @@ function loadJS(src, callback){
           {
               const loader = document.createElement('script');
               loader.setAttribute('type', 'text/javascript');
+              loader.setAttribute('crossorigin', 'anonymous');
               if(id) loader.setAttribute('id', id);
 
               loader.setAttribute('src', file_src);
