@@ -1,0 +1,42 @@
+{
+  "name": "xeljslib",
+  "version": "0.0.2",
+  "title": "XelJSlib",
+  "description": "Xeloses' JS library.",
+  "author": "Xeloses (https://github.com/Xeloses)",
+  "homepage": "https://github.com/Xeloses/xeljslib",
+  "license": "GPL-3.0",
+  "keywords": [
+    "javascript",
+    "js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xeloses/xeljslib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Xeloses/xeljslib/issues"
+  },
+  "main": "dist/xeljslib.min.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "build:dev": "webpack --mode=development",
+    "biuld_xelapp": "webpack --env job=xelapp --mode=production",
+    "biuld_xelapp:dev": "webpack --env job=xelapp --mode=development",
+    "watch": "webpack --watch",
+    "webserver": "webpack serve --open",
+    "docs": "esdoc -c esdoc.json",
+    "eslint": "eslint '**/*.{js,jsx,ts,tsx}'",
+    "reset-stats": "rd /S /Q .\\node_modules\\.cache\\bundle-stats"
+  },
+  "devDependencies": {
+    "node": "^18.12",
+    "eslint": "^8.50",
+    "eslint-webpack-plugin": "^4.0.1",
+    "terser": "^5.20",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.88",
+    "webpack-cli": "^5.1",
+    "bundle-stats-webpack-plugin": "^4.7"
+  }
+}
