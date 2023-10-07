@@ -9,6 +9,7 @@
 **/*stats.html
 .cmd
 .log
+.map
 .tmp
 .sqlite
 .vscode
