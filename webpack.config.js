@@ -54,8 +54,7 @@ module.exports = ( env, argv ) =>
         entry: modules[ moduleName ],
         output: {
             path: outputPath,
-            filename: outputFile,
-            clean: true // cleanup output folder before work
+            filename: outputFile
         },
         devtool: isDev ? false : 'source-map',
         devServer: {
