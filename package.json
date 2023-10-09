@@ -21,22 +21,23 @@
   "scripts": {
     "build": "webpack --mode=production",
     "build:dev": "webpack --mode=development",
-    "biuld_xelapp": "webpack --env job=xelapp --mode=production",
-    "biuld_xelapp:dev": "webpack --env job=xelapp --mode=development",
-    "watch": "webpack --watch",
-    "webserver": "webpack serve --open",
-    "docs": "esdoc -c esdoc.json",
-    "eslint": "eslint '**/*.{js,jsx,ts,tsx}'",
-    "reset-stats": "rd /S /Q .\\node_modules\\.cache\\bundle-stats"
+    "eslint": "eslint --ext .js,.jsx,.cjs,.mjs --color ./src/",
+    "docs": "jsdoc -c .jsdoc.json",
+    "reset-stats:win32": "del /Q .\\dist\\bundle-stats.* && del /Q .\\.cache\\stats\\bundle-stats.json",
+    "reset-stats:linux": "rm -fv  ./dist/bundle-stats.* && rm -fv  ./.cache/stats/bundle-stats.json"
   },
   "devDependencies": {
-    "node": "^18.12",
-    "eslint": "^8.50",
-    "eslint-webpack-plugin": "^4.0.1",
-    "terser": "^5.20",
+    "eslint": "^8.50.0",
+    "jsdoc": "^4.0.2",
+    "prettier": "^3.0.3",
+    "terser": "^5.20.0",
     "terser-webpack-plugin": "^5.3.9",
-    "webpack": "^5.88",
-    "webpack-cli": "^5.1",
-    "bundle-stats-webpack-plugin": "^4.7"
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "bundle-stats-webpack-plugin": "^4.7.4"
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": "10.x"
   }
 }
