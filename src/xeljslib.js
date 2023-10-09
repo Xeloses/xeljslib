@@ -1,5 +1,11 @@
+/**
+ * Main entry module.
+ * @module xeljslib
+ */
+
 import XelApp from './modules/xelapp/xelapp';
-import { exportToBrowser } from './helpers/export-helper';
+import XelWebApp from './modules/xelapp/xelwebapp';
+import Export from './helpers/helper-export';
 
 /**
  * Xeloses' JS library.
@@ -8,9 +14,9 @@ import { exportToBrowser } from './helpers/export-helper';
  * @classdesc Javascript library.
  */
 const XelJSlib = {
-    XelApp: XelApp
+    XelApp:    XelApp,
+    XelWebApp: XelWebApp
 }
 
-exportToBrowser( { 'XelJSlib': XelJSlib } );
-
+Export.toBrowser({ XelJSlib: XelJSlib });
 export default XelJSlib;
