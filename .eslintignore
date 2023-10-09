@@ -1,2 +1,11 @@
+.cache
+.vscode
+build
+dist
+docs
+mode_modules
+tmp
+vendor
+**/*{.,-}bundle.js
 **/*{.,-}min.js
-**/.banner.js
+**/bundle-stats.*
