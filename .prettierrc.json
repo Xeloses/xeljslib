@@ -1,0 +1,43 @@
+{
+  "trailingComma": "es5",
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "bracketSameLine": true,
+  "semi": false,
+  "singleQuote": false,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "overrides": [
+    {
+      "files": "*.js",
+      "options":
+      {
+        "semi": true,
+        "singleQuote": true
+      }
+    },
+    {
+      "files": "*.json",
+      "options":
+      {
+        "tabWidth": 2,
+        "singleQuote": false,
+        "quoteProps": "consistent"
+      }
+    },
+    {
+      "files": ["*.html", "*.htm", "*.xhtml"],
+      "options":
+      {
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.css",
+      "options":
+      {
+        "singleQuote": true
+      }
+    }
+  ]
+}
