@@ -12,8 +12,8 @@ const webpack = require('webpack');
  */
 const modules = {
     main:      './src/xeljslib.js',
-    xelapp:    './src/modules/xelapp/xelapp.js',
-    xelwebapp: './src/modules/xelapp/xelwebapp.js'
+    xelapp:    './src/classes/xelapp.js',
+    xelwebapp: './src/classes/xelwebapp.js'
 }
 
 module.exports = (env, argv) =>
