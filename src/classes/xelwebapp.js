@@ -1,20 +1,18 @@
 /**
- * Class module.
- * @module xeljslib/xelapp/xelwebapp
+ * @module xeljslib/xelwebapp
  */
 
 import XelApp from './xelapp';
 import XelWebAppStorage from './xelwebappstorage';
-import XelWebAppError from '../../classes/exceptions';
-import Export from '../../helpers/helper-export';
-import * as XelTypedef from '../../classes/typedefs';
+import XelWebAppError from './service/exceptions';
+import Export from '../utility/exporter';
+import * as XelTypedef from './service/typedefs';
 
 /**
  * Web-application.
  *
- * @class     XelWebApp
- * @extends   {XelApp}
- * @classdesc Implements web-application.
+ * @class   XelWebApp
+ * @extends {XelApp}
  */
 class XelWebApp extends XelApp
 {
@@ -22,19 +20,19 @@ class XelWebApp extends XelApp
      * @constructor
      *
      * @param {?XelTypedef.XelAppInformation} [data={}]
-     *        Web-application information ({@linkcode XelTypedef.XelAppInformation});
-     *        pass GM_info.script to use info from userscript' header.
+     *        Web-application information ({@link XelTypedef.XelAppInformation});
+     *        pass `GM_info.script` to use info from userscript' header.
      * @param {?XelTypedef.XelWebAppConfig} [config={}]
-     *        Web-application configuraion ({@linkcode XelTypedef.XelWebAppConfig}).
+     *        Web-application configuraion ({@link XelTypedef.XelWebAppConfig}).
      * @param {?XelTypedef.XelWebAppStorageUpgradeCallback} [storageUpgradeCallback=null]
-     *        Storage upgrade/update function ({@linkcode XelTypedef.XelWebAppStorageUpgradeCallback}),
+     *        Storage upgrade/update function ({@link XelTypedef.XelWebAppStorageUpgradeCallback}),
      *        executed if version of data in storage is older than version passed to constructor.
      * @memberof XelWebApp
      */
     constructor(data = {}, config = {}, storageUpgradeCallback = null)
     {
         const defaultConfig = {
-            // Default config:
+            // default config:
             logHeaderColor:       'c5c',
             logTextColor:         'ddd',
             noConsole:            false,
@@ -49,7 +47,7 @@ class XelWebApp extends XelApp
         this.__is_mobile_device__ = this.__isMobile();
         this.__config__.use_userscript_storage = conf.useUserscriptStorage;
 
-        if(storageUpgradeCallback)
+        if(storageUpgradeCallback && storageUpgradeCallback instanceof Function)
             this.__onStorageUpgrade__ = storageUpgradeCallback;
     }
 
@@ -59,7 +57,7 @@ class XelWebApp extends XelApp
      * Check if script running on mobile device.
      *
      * @private
-     * @return {boolean}
+     * @return {boolean} - `true` if running in mobile browser, `false` otherwise.
      * @memberof XelWebApp
      */
     __isMobile()
@@ -86,8 +84,8 @@ class XelWebApp extends XelApp
      * Initialize app storage.
      *
      * @protected
-     * @return {XelWebAppStorage} - {@linkcode XelWebAppStorage} instance.
-     * @throws {XelWebAppError}
+     * @return {XelWebAppStorage} - {@link XelWebAppStorage} instance.
+     * @throws {XelWebAppError} if {@link XelWebAppStorage} throws an exception on init.
      * @memberof XelWebApp
      */
     __initStorage()
@@ -133,7 +131,7 @@ class XelWebApp extends XelApp
     get isMobile(){ return this.__is_mobile_device__; }
 
     /**
-     * Storage (instance of {@linkcode XelWebAppStorage}).
+     * Storage (instance of {@link XelWebAppStorage}).
      *
      * @type {XelWebAppStorage}
      * @public
@@ -148,8 +146,8 @@ class XelWebApp extends XelApp
      * Wait for DOM (or part of DOM) loading/processing.
      *
      * @public
-     * @param  {string}            sel  CSS selector of element to wait for.
-     * @param  {CallableFunction}  cb   Callback function.
+     * @param  {string}            sel - CSS selector of element to wait for.
+     * @param  {CallableFunction}  cb  - Xallback function.
      * @return {void}
      * @memberof XelWebApp
      */
@@ -162,15 +160,16 @@ class XelWebApp extends XelApp
      * Create new DOM Node.
      *
      * @public
-     * @param {?string} [node='DIV']
-     *        Node type (use "text" to create TextNode; default: "DIV").
-     * @param {?(string|Node|string[]|Node[])} [content=null]
-     *        Node or Text or Array of elements (Nodes and/or Text) to insert into created Node
+     * @param {?string} [node="DIV"]
+     *        Node type (use "`text`" to create TextNode; default: "`DIV`").
+     * @param {?(string|string[]|Node|Node[])} [content=null]
+     *        Optional content to insert into created Node.
+     *        Can be a Node or a Text or an Array of elements
      *        (default: no content, creates empty node).
      * @param {?object} [attributes=null]
      *        Optional list of node attributes (default: no attributes).
      * @param {?string} [namespace=null]
-     *        Optional Node namespace (usable only for <svg> nodes; default: no namespace).
+     *        Optional Node namespace (usable only for `<svg>` nodes; default: no namespace).
      * @return {Node}
      * @memberof XelWebApp
      */
@@ -211,16 +210,16 @@ class XelWebApp extends XelApp
     }
 
     /**
-     * Inject CSS into page (create <style> element with CSS).
+     * Inject CSS into page (creates `<style>` node with CSS code).
      *
      * @public
-     * @param  {string}  css                       CSS code to inject.
-     * @param  {?string} [id=null]                 Optional ID for injected CSS *("**id**" attribute of **style** tag)*.
-     * @param  {?string} [media=null]              Optional Media type of injecting CSS
-     *                                             *("**media**" attribute of **style** tag; default: "**screen**")*.
-     * @param  {boolean} [preserve_comments=false] Preserve or remove comments from CSS code before inject
-     *                                             *(default: remove comments)*.
-     * @return {Node}
+     * @param  {string}  css                        - CSS code to inject.
+     * @param  {?string} [id=null]                  - Optional ID (`id` attribute of `<style>` tag).
+     * @param  {?string} [media=null]               - Optional Media type of injecting CSS
+     *                                                (`media` attribute of `<style>` tag; default: `screen`).
+     * @param  {?boolean} [preserve_comments=false] - Preserve or remove comments from CSS code before inject
+     *                                                (default: remove comments).
+     * @return {Node} - created `<style>` Node.
      * @memberof XelWebApp
      */
     injectCSS(css, id = null, media = null, preserve_comments = false)

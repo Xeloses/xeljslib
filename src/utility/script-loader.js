@@ -1,6 +1,5 @@
 /**
- * External scripts loading helper.
- * @module xeljslib/helpers/helpers-script-loader
+ * @module utility/script-loader
  */
 
 /**
@@ -8,12 +7,12 @@
  */
 
 /**
- * @typedef  {Object} URLsList   - List of URLs with IDs for them (pairs ``{"ID": "URL"}``).
+ * @typedef  {Object} URLsList   - list of URLs with IDs for them (pairs ``{"ID": "URL"}``).
  * @property {string} library_id - URL of script for loading.
  */
 
 /**
- * Helper function for loading external JS lib(s).
+ * Utility function for loading external JS lib(s).
  *
  * @example
  *   loadJS({
@@ -23,10 +22,10 @@
  *   });
  *
  * @param {string|URLsArray|URLsList} src
- *          Script source(s), can be String (loads single script), or {@linkcode URLsArray} (loads multiple scripts)
- *          or {@linkcode URLsList} with pairs {'id_01': 'script_url_01', ... } (reccomended; loads multiple scripts
- *          and sets IDs for them, prevents loading of scripts with duplicate IDs).
- * @param  {CallableFunction} callback - Callback function to execute after loading script(s).
+ *          script source(s), can be String (loads single script), or {@link URLsArray} (loads multiple scripts)
+ *          or {@link URLsList} (reccomended; loads multiple scripts and sets IDs for them, prevents loading of
+ *          scripts with duplicate IDs).
+ * @param  {CallableFunction} callback - callback function to execute after loading script(s).
  * @return {Void}
  */
 function loadJSlib(src, callback)

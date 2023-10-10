@@ -1,6 +1,5 @@
 /**
- * Exporting helpers.
- * @module xeljslib/helpers/helpers-export
+ * @module utility/exporter
  */
 
 /**
@@ -14,7 +13,7 @@
  * {window} and/or {unsafeWindow} (for userscripts).
  *
  * @param {ExportingList} exporting  List ({@link ExportingList}) of exporting units
- *                                   (as pairs: **{ {string} Name: {any} Unit }**).
+ *                                   (as pairs: `{string} Name: {any} Unit`).
  *                                   Source units will be exported with given names
  *                                   *(all symbols in names except alphanumeric and
  *                                   underscore will be converted to underscores)*.
@@ -31,8 +30,8 @@ function exportToBrowser(exporting)
     }
 }
 
-const ExportHelpers = {
+const Export = {
     toBrowser: exportToBrowser
 }
 
-export default ExportHelpers;
+export default Export;

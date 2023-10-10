@@ -3,9 +3,9 @@
  * @module xeljslib
  */
 
-import XelApp from './modules/xelapp/xelapp';
-import XelWebApp from './modules/xelapp/xelwebapp';
-import Export from './helpers/helper-export';
+import XelApp from './classes/xelapp';
+import XelWebApp from './classes/xelwebapp';
+import Export from './utility/exporter';
 
 /**
  * Xeloses' JS library.

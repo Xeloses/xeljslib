@@ -1,32 +1,30 @@
 /**
- * Class module.
- * @module xeljslib/xelapp/xelapp
+ * @module xeljslib/xelapp
  */
 
-import Export from '../../helpers/helper-export';
-import * as XelTypedef from '../../classes/typedefs';
+import Export from '../utility/exporter';
+import * as XelTypedef from './service/typedefs';
 
 /**
  * Script application.
  *
- * @class     XelApp
- * @classdesc Implements script application.
+ * @class XelApp
  */
 class XelApp
 {
     /**
      * @constructor
      *
-     * @param {?XelTypedef.XelAppInformation} [data={}]   Application information
-     *                                                    ({@linkcode XelTypedef.XelAppInformation}).
-     * @param {?XelTypedef.XelAppConfig}      [config={}] Application configuraion
-     *                                                    ({@linkcode XelTypedef.XelAppConfig}).
+     * @param {?XelTypedef.XelAppInformation} [data={}]
+     *        Application information ({@link XelTypedef.XelAppInformation}).
+     * @param {?XelTypedef.XelAppConfig}      [config={}]
+     *        Application configuraion ({@link XelTypedef.XelAppConfig}).
      * @memberof XelApp
      */
     constructor(data = {}, config = {})
     {
         const defaultConfig = {
-            // Default config:
+            // default config:
             logHeaderColor: 'c5c',
             logTextColor:   'ddd',
             noConsole:      false
@@ -67,7 +65,7 @@ class XelApp
     get name(){ return this.__name__; }
 
     /**
-     * Application name (alias of {@linkcode XelApp.name}).
+     * Application name (alias of {@link XelApp.name}).
      *
      * @type {string}
      * @public
@@ -87,7 +85,7 @@ class XelApp
     get version(){ return this.__version__; }
 
     /**
-     * Application version (alias of {@linkcode XelApp.version}).
+     * Application version (alias of {@link XelApp.version}).
      *
      * @type {string}
      * @public
@@ -127,7 +125,7 @@ class XelApp
     get homepage(){ return this.__url__; }
 
     /**
-     * Application homepage (alias of {@linkcode XelApp.homepage}).
+     * Application homepage (alias of {@link XelApp.homepage}).
      *
      * @type {string}
      * @public
@@ -147,7 +145,7 @@ class XelApp
     get namespace(){ return this.__namespace__; }
 
     /**
-     * Namespace (alias of {@linkcode XelApp.namespace}).
+     * Namespace (alias of {@link XelApp.namespace}).
      *
      * @type {string}
      * @public
@@ -167,7 +165,7 @@ class XelApp
     get prefix(){ return this.__unique_id__; }
 
     /**
-     * Unique prefix (alias of {@linkcode XelApp.prefix}).
+     * Unique prefix (alias of {@link XelApp.prefix}).
      *
      * @type {string}
      * @public
@@ -184,7 +182,7 @@ class XelApp
      * Log to console.
      *
      * @public
-     * @param  {string} message
+     * @param  {string} message - Log message.
      * @return {void}
      * @memberof XelApp
      */
@@ -198,8 +196,8 @@ class XelApp
      * Dump variable to console.
      *
      * @public
-     * @param  {any}     value           Variable to dump.
-     * @param  {?string} [comment=null]  Optional comment.
+     * @param  {any}    value          - Variable to dump.
+     * @param  {string} [comment=null] - Optional comment.
      * @return {void}
      * @memberof XelApp
      */
@@ -214,7 +212,7 @@ class XelApp
      * Log info to console.
      *
      * @public
-     * @param  {string} message
+     * @param  {string} message - Information message.
      * @return {void}
      * @memberof XelApp
      */
@@ -228,7 +226,7 @@ class XelApp
      * Log warning to console.
      *
      * @public
-     * @param  {string} message
+     * @param  {string} message - Warning message.
      * @return {void}
      * @memberof XelApp
      */
@@ -242,7 +240,7 @@ class XelApp
      * Log error to console.
      *
      * @public
-     * @param  {string} message
+     * @param  {string} message - Error message.
      * @return {void}
      * @memberof XelApp
      */

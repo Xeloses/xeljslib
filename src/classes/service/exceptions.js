@@ -1,12 +1,13 @@
 /**
  * Errors/Exceptions.
- * @module xeljslib/classes/exceptions
+ *
+ * @module xeljslib/exceptions
  */
 
 /**
  * Base error/exception class.
  *
- * @class XelException
+ * @class   XelException
  * @extends {Error}
  */
 class XelException extends Error
@@ -27,7 +28,7 @@ class XelException extends Error
 /**
  * XelApp exception.
  *
- * @class XelAppError
+ * @class   XelAppError
  * @extends {XelException}
  */
 class XelAppError extends XelException {}
@@ -35,7 +36,7 @@ class XelAppError extends XelException {}
 /**
  * XelWebApp exception.
  *
- * @class XelWebAppError
+ * @class   XelWebAppError
  * @extends {XelAppError}
  */
 class XelWebAppError extends XelAppError {}
@@ -43,7 +44,7 @@ class XelWebAppError extends XelAppError {}
 /**
  * XelWebAppStorage exception.
  *
- * @class XelWebAppStorageError
+ * @class   XelWebAppStorageError
  * @extends {XelException}
  */
 class XelWebAppStorageError extends XelException {}

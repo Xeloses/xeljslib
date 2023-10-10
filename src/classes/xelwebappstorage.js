@@ -1,16 +1,14 @@
 /**
- * Class module.
- * @module xeljslib/xelapp/xelwebappstorage
+ * @module xeljslib/xelwebappstorage
  */
 
-import XelWebAppStorageError from '../../classes/exceptions';
-import * as XelTypedef from '../../classes/typedefs';
+import XelWebAppStorageError from './service/exceptions';
+import * as XelTypedef from './service/typedefs';
 
 /**
- * Script storage.
+ * Script storage (use browser' local storage or userscripts addon' storage).
  *
- * @class     XelWebAppStorage
- * @classdesc Implements script storage (using browser' local storage or userscripts storage)
+ * @class XelWebAppStorage
  */
 class XelWebAppStorage
 {
@@ -20,17 +18,18 @@ class XelWebAppStorage
      * @param {?number} [version=1]
      *        Version of data in storage (used to determine if storage needs upgrade).
      * @param {?XelTypedef.XelWebAppStorageConfig} [config={}]
-     *        Storage configuration options ({@linkcode XelTypedef.XelWebAppStorageConfig}).
+     *        Storage configuration options ({@link XelTypedef.XelWebAppStorageConfig}).
      * @param {?XelTypedef.XelWebAppStorageUpgradeCallback} [upgradeCallback=null]
-     *        Storage upgrade/update function ({@linkcode XelTypedef.XelWebAppStorageUpgradeCallback}),
+     *        Storage upgrade/update function ({@link XelTypedef.XelWebAppStorageUpgradeCallback}),
      *        executed if version of data in storage is older than version passed to constructor.
      * @throws {XelWebAppStorageError}
+     *        if storage (browser' local storage or userscripts addon' storage) is unavailable.
      * @memberof XelWebAppStorage
      */
     constructor(version = 1, config = {}, upgradeCallback = null)
     {
         const defaultConfig = {
-            // Default config:
+            // default config:
             isUserscript:         false,
             useUserscriptStorage: true
         };
@@ -76,8 +75,8 @@ class XelWebAppStorage
      *   storage.__n("1.7.12.206"); // -> 1007012.206
      *
      * @private
-     * @param  {string} value
-     * @return {number}
+     * @param  {string} value - String representation of the version.
+     * @return {number}       - Numeric version value.
      * @memberof XelWebAppStorage
      */
     __n(value)
@@ -98,8 +97,8 @@ class XelWebAppStorage
      * Trigger event.
      *
      * @private
-     * @param  {string}            name    Event name.
-     * @param  {?*}                [data]  Data to be passed to event listener.
+     * @param  {string}            name   - Event name.
+     * @param  {*}                 [data] - Optional data to be passed to event listener.
      * @return {XelWebAppStorage}
      * @memberof XelWebAppStorage
      */
@@ -113,10 +112,10 @@ class XelWebAppStorage
     /* ==================== PROTECTED METHODS ==================== */
 
     /**
-     * Check if Userscript Storage is available.
+     * Check if Userscript storage is available.
      *
      * @protected
-     * @return {boolean}
+     * @return {boolean} - `true` if Userscript storage is available, `false` otherwise.
      * @memberof XelWebAppStorage
      */
     __isUserscriptStorageAvailable()
@@ -143,8 +142,8 @@ class XelWebAppStorage
      * Check if localStorage is supported in the browser and available.
      *
      * @protected
-     * @return {boolean}
-     * @throws {XelWebAppStorageError}
+     * @return {boolean} - `true` if localStorage is supported in the browser and available, `false` otherwise.
+     * @throws {XelWebAppStorageError} if localStorage is unsupported or blocked by browser privacy settings.
      * @memberof XelWebAppStorage
      */
     __isLocalStorageAvailable()
@@ -193,8 +192,8 @@ class XelWebAppStorage
      * Check if value is exists in storage.
      *
      * @public
-     * @param  {string} name
-     * @return {boolean}
+     * @param  {string} name - Storage data entry name.
+     * @return {boolean}     - `true` if data entry with given name is exist in storage, `false` otherwise.
      * @memberof XelWebAppStorage
      */
     has(name)
@@ -216,10 +215,10 @@ class XelWebAppStorage
      * Read value from storage.
      *
      * @public
-     * @param  {string} name
-     * @return {*}
-     * @fires  XelWebAppStorage#read
-     * @throws {XelWebAppStorageError}
+     * @param  {string} name - Storage data entry name.
+     * @return {*}           - Value associated with given name.
+     * @emits  XelWebAppStorage#read
+     * @throws {XelWebAppStorageError} on storage reading error.
      * @memberof XelWebAppStorage
      */
     get(name)
@@ -256,11 +255,11 @@ class XelWebAppStorage
      * Store value into storage.
      *
      * @public
-     * @param  {string} name
-     * @param  {*}      value
-     * @return {Self}
-     * @fires  XelWebAppStorage#write
-     * @throws {XelWebAppStorageError}
+     * @param  {string} name  - Storage data entry name.
+     * @param  {*}      value - Value to store.
+     * @return {XelWebAppStorage}
+     * @emits  XelWebAppStorage#write
+     * @throws {XelWebAppStorageError} on storage writing error.
      * @memberof XelWebAppStorage
      */
     set(name, value)
@@ -297,12 +296,12 @@ class XelWebAppStorage
     }
 
     /**
-     * Remove value from storage (alias of {@linkcode XelWebAppStorage.delete()}).
+     * Remove value from storage (alias of {@link XelWebAppStorage.delete()}).
      *
      * @public
-     * @param  {string}  name
+     * @param  {string} name - Name of the storage data entry to be deleted.
      * @return {XelWebAppStorage}
-     * @fires  XelWebAppStorage#remove
+     * @emits  XelWebAppStorage#remove
      * @memberof XelWebAppStorage
      */
     remove(name)
@@ -317,8 +316,8 @@ class XelWebAppStorage
          *
          * @event XelWebAppStorage#remove
          * @type  {Object}
-         * @param {string}  name    - Storage data entry name.
-         * @param {boolean} process - Set to `false` to prevent removing data entry from storage.
+         * @param {string}  name    - storage data entry name.
+         * @param {boolean} process - set to `false` to prevent removing data entry from storage.
          */
         this.__emit('remove', data);
 
@@ -336,7 +335,7 @@ class XelWebAppStorage
      *
      * @public
      * @return {XelWebAppStorage}
-     * @fires  XelWebAppStorage#clear
+     * @emits  XelWebAppStorage#clear
      * @memberof XelWebAppStorage
      */
     clear()
@@ -366,8 +365,8 @@ class XelWebAppStorage
      * Add event listener.
      *
      * @public
-     * @param  {string}           name      Event name.
-     * @param  {XelEventCallback} callback  Callback function ({@linkcode XelTypedef.XelEventCallback}).
+     * @param  {string}           name     - Event name.
+     * @param  {XelEventCallback} callback - Callback function ({@link XelTypedef.XelEventCallback}).
      * @return {XelWebAppStorage}
      * @memberof XelWebAppStorage
      */
@@ -379,11 +378,11 @@ class XelWebAppStorage
     }
 
     /**
-     * Add event listener (alias of {@linkcode XelWebAppStorage.addEventListener()}).
+     * Add event listener (alias of {@link XelWebAppStorage.addEventListener()}).
      *
      * @public
-     * @param  {string}           name      Event name.
-     * @param  {XelEventCallback} callback  Callback function ({@linkcode XelTypedef.XelEventCallback}).
+     * @param  {string}           name     - Event name.
+     * @param  {XelEventCallback} callback - Callback function ({@link XelTypedef.XelEventCallback}).
      * @return {XelWebAppStorage}
      * @memberof XelWebAppStorage
      */
