@@ -1,0 +1,37 @@
+{
+  "source": "./src",
+  "destination": "./docs",
+  "includes": [ "\\.(m|c)?jsx?$" ],
+  "excludes": [ "\\/(test|utility)\\/[\\w]+\\.(m|c)?jsx?$" ],
+  "outputAST": true,
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "coverage": { "enable": true },
+        "lint": { "enable": true },
+        "accessor": {
+          "access": [ "public" ],
+          "autoPrivate": true
+        },
+        "undocumentIdentifier": { "enable": false },
+        "unexportedIdentifier": { "enable": false },
+        "typeInference": { "enable": true }
+      }
+    },
+    {
+      "name": "esdoc-exclude-source-plugin"
+    },
+    {
+      "name": "esdoc-importpath-plugin",
+      "option": {
+        "stripPackageName": false,
+        "replaces": [
+          { "from": "\\/src\\/classes\\/service\\/.*$", "to": "/dist/xeljslib.js" },
+          { "from": "\\/src\\/classes\\/", "to": "/dist/modules/xeljslib-" },
+          { "from": "\\/src\\/\\w+\\.js$", "to": "/dist/xeljslib.js" }
+        ]
+      }
+    }
+  ]
+}
